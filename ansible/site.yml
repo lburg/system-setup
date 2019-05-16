@@ -1,0 +1,9 @@
+---
+
+- name: Setup ArchLinux system
+  hosts: localhost
+  connection: local
+  become: True
+
+  roles:
+    - { role: dotfiles, tags: ['base'] }

@@ -1,0 +1,7 @@
+user:
+  name: lburg
+
+dotfiles:
+  installation: "true"
+  url: https://github.com/lburg/dotfiles.git
+  destination: .dotfiles
