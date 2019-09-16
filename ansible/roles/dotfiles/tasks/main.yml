@@ -16,7 +16,7 @@
   tags:
     - aur
 
-- name: Close dotfiles repository
+- name: Clone dotfiles repository
   git:
     repo: "{{ dotfiles.url }}"
     dest: "{{ dotfiles_dest }}"
