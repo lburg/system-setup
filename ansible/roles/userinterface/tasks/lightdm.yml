@@ -1,0 +1,22 @@
+---
+
+- name: Enable lightdm
+  systemd:
+    name: lightdm
+    enabled: yes
+
+- name: Copy lightdm configuration file
+  template:
+    src: lightdm/lightdm.conf.j2
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+
+- name: Template lightdm greeter configuration file
+  copy:
+    src: "lightdm/{{ lightdm_greeter }}.conf"
+    dest: "/etc/lightdm/{{ lightdm_greeter }}.conf"
+    owner: root
+    group: root
+
+# Run light-locker-settings?

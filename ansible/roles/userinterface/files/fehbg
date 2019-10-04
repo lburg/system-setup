@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-tile '/home/lburg/.gruvbox_bg.png'

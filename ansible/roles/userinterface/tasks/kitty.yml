@@ -1,0 +1,6 @@
+---
+
+- name: Make kitty the default terminal emulator
+  alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/kitty

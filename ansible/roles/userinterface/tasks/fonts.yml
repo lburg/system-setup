@@ -1,0 +1,10 @@
+---
+
+- name: Install Hack font
+  unarchive:
+    src: https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+    dest: /usr/share/fonts/
+    remote_src: yes
+
+- name: Clear and regenerate font cache
+  shell: fc-cache -f -v

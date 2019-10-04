@@ -1,9 +1,14 @@
 ---
 
-- name: Setup ArchLinux system
+- name: Setup ArchLinux/Debian system
   hosts: localhost
   connection: local
   become: True
 
   roles:
-    - { role: dotfiles, tags: ['base'] }
+    - role: base
+      tags: [ base ]
+    - role: userinterface
+      tags: [ ui ]
+    - role: dotfiles
+      tags: [ base, dotfiles ]

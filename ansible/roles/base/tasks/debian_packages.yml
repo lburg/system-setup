@@ -1,0 +1,36 @@
+---
+
+- name: Add Spotify signing key to verify downloads
+  shell: curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --dearmor | tee /usr/share/keyrings/repository-spotify-com-keyring.gpg >/dev/null
+
+- name: Add backports to apt sources.list, and Spotify repository
+  blockinfile:
+    name: /etc/apt/sources.list
+    block: |
+      deb https://deb.debian.org/debian buster-backports main contrib non-free
+      deb-src https://deb.debian.org/debian buster-backports main contrib non-free
+      deb https://deb.debian.org/debian testing main contrib non-free
+      deb-src https://deb.debian.org/debian testing main contrib non-free
+      deb [signed-by=/usr/share/keyrings/repository-spotify-com-keyring.gpg] http://repository.spotify.com stable non-free
+
+- name: Install packages
+  apt:
+    name: "{{ base_packages + debian_packages }}"
+    update_cache: yes
+
+- name: Install pyenv from GitHub installer
+  shell: sh -c "curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash || true"
+  become: "{{ user.name }}"
+
+  # - name: Install latest python version
+  #   shell: pyenv install "{{ python.version }}"
+  #   become: "{{ user.name }}"
+  # 
+  # - name: Set latest python version as global
+  #   shell: pyenv global "{{ python.version }}"
+  #   become: "{{ user.name }}"
+  # 
+- name: Install pyenv-virtualenvwrapper plugin
+  git:
+    repo: https://github.com/pyenv/pyenv-virtualenvwrapper.git
+    dest: "/home/{{ user.name }}/.pyenv/plugins/pyenv-virtualenvwrapper"

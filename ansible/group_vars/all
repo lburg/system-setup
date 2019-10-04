@@ -1,7 +1,52 @@
+# ansible_python_interpreter: /usr/bin/python3.7
+
 user:
   name: lburg
+  group: users
+  shell: /bin/zsh
 
 dotfiles:
   installation: "true"
   url: https://github.com/lburg/dotfiles.git
   destination: .dotfiles
+
+python:
+  version: 3.9.2
+
+base_packages:
+  - curl
+  - feh
+  - fzf
+  - i3
+  - imagemagick
+  - lightdm
+  - light-locker
+  - network-manager
+  - prettyping
+  - rofi
+  - tig
+  - vim
+  - virtualenvwrapper
+  - xorg
+  - zsh
+
+debian_packages:
+  - firefox-esr
+  - kitty
+  - libssl-dev  # required to install python versions from pyenv
+  - mlocate
+  - polybar
+  - psmisc  # contains killall
+  - rcm
+  - slick-greeter  # lightdm-mini-greeter doesn't work on Debian
+  # - spotify-client
+  - zip
+
+archlinux_packages:
+  - base-devel
+  - termite
+
+aur_packages:
+  - polybar
+  - pyenv-virtualenv
+  - rcm

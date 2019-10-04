@@ -1,0 +1,11 @@
+---
+
+- name: Include architecture vars
+  include_vars: "{{ ansible_os_family }}.yaml"
+
+- import_tasks: fonts.yml
+- import_tasks: i3.yml
+- import_tasks: lightdm.yml
+
+- import_tasks: kitty.yml
+  when: ansible_os_family == 'Debian'

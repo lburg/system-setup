@@ -4,18 +4,6 @@
   set_fact:
     dotfiles_dest: "/home/{{ user.name }}/{{ dotfiles.destination }}"
 
-- name: Install rcm
-  aur:
-    name: rcm
-    user: "{{ user.name }}"
-  register: task_result
-  until: task_result is success
-  retries: 10
-  delay: 2
-  when: dotfiles.installation == 'true'
-  tags:
-    - aur
-
 - name: Clone dotfiles repository
   git:
     repo: "{{ dotfiles.url }}"
@@ -24,7 +12,7 @@
     update: yes
     force: yes
 
-- name: Install dotfiles
+- name: Install dotfiles (requires rcm)
   command: "rcup -d {{ dotfiles_dest }}"
   when: dotfiles.installation == 'true'
   become: yes

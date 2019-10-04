@@ -1,0 +1,18 @@
+##
+## Arch Linux repository mirrorlist
+## Generated on 2020-05-06
+##
+
+## France
+Server = https://mirrors.arnoldthebat.co.uk/archlinux/$repo/os/$arch
+Server = https://mirror.cyberbits.eu/archlinux/$repo/os/$arch
+Server = https://mirrors.eric.ovh/arch/$repo/os/$arch
+Server = https://arch-mirror.cloud.louifox.house/$repo/os/$arch
+Server = https://archlinux.mailtunnel.eu/$repo/os/$arch
+Server = https://mirrors.celianvdb.fr/archlinux/$repo/os/$arch
+Server = https://arch.nimukaito.net/$repo/os/$arch
+Server = https://mirror.oldsql.cc/archlinux/$repo/os/$arch
+Server = https://mirror.sysa.tech/archlinux/$repo/os/$arch
+Server = https://mirror.thekinrar.fr/archlinux/$repo/os/$arch
+Server = https://mirror.wormhole.eu/archlinux/$repo/os/$arch
+Server = https://arch.yourlabs.org/$repo/os/$arch

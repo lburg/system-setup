@@ -1,0 +1,12 @@
+github-cli
+dmenu/rofi
+i3/i3-gaps
+firefox
+discord
+docker
+alternative à feh
+ipython
+kubectx/minikube (avec tags, pas par défaut)
+tmux/screen
+vim
+vlc

@@ -1,0 +1,5 @@
+User_Alias ADMIN = {{ user.name }}
+Cmnd_Alias SYS_CMDS = /usr/bin/systemctl poweroff, /usr/bin/systemctl reboot, /usr/bin/systemctl suspend
+
+# allow specified users to execute these commands without password
+ADMIN ALL=(ALL) NOPASSWD: SYS_CMDS

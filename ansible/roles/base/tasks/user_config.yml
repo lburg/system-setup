@@ -1,0 +1,41 @@
+---
+
+- name: Create user group
+  group:
+    name: "{{ user.group }}"
+    state: present
+  when: user.name is defined
+
+- name: Create user
+  user:
+    name: "{{ user.name }}"
+    shell: "{{ user.shell }}"
+    groups:
+        - "{{ user.group }}"
+        # - wheel
+    append: yes
+  when: user.name is defined
+
+- name: Copy sudoers file to make certain commands usable without sudo
+  template:
+    src: 00-nopasswd.j2
+    dest: /etc/sudoers.d/00-nopasswd
+  when: user.name is defined
+
+- name: Create an aur_builder user to build AUR packages
+  user:
+    name: aur_builder
+    group: wheel
+    comment: "AUR builder"
+    shell: /bin/nologin
+    system: yes
+    create_home: no
+  tags: [ archlinux ]
+
+- name: Allow aur_builder to run without asking for a password
+  lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    validate: 'visudo -cf %s'
+  tags: [ archlinux ]

@@ -1,0 +1,52 @@
+---
+
+- import_tasks: user_config.yml
+- import_tasks: archlinux_packages.yml
+  tags: [ archlinux ]
+- import_tasks: debian_packages.yml
+  tags: [ debian ]
+
+- name: Create vim bundle directory
+  file:
+    name: "/home/{{ user.name }}/.vim/bundle/"
+    state: directory
+    recurse: yes
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+
+- name: Install Vundle to handle vim plugins
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: "/home/{{ user.name }}/.vim/bundle/Vundle.vim"
+    accept_hostkey: yes
+    key_file: "/home/{{ user.name }}/.ssh/id_rsa"
+  become: yes
+  become_user: "{{ user.name }}"
+
+- name: Check if oh-my-zsh is already installed
+  stat:
+    path: "/home/{{ user.name }}/.oh-my-zsh/"
+  register: ohmyzsh
+
+- name: Install oh-my-zsh if it's not already
+  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended || true"
+  become: "{{ user.name }}"
+  when: not ohmyzsh.stat.exists
+
+- name: Delete default zshrc so rcup can install ours without using its dangerous -f option
+  file:
+    name: "/home/{{ user.name }}/.zshrc"
+    state: absent
+  when: not ohmyzsh.stat.exists
+
+- name: Install kitti3
+  pip:
+    name: kitti3
+    extra_args: --user
+  become: "{{ user.name }}"
+
+- name: Symlink to kitti3 from a folder on PATH
+  file:
+    name: /usr/bin/kitti3
+    src: "/home/{{ user.name }}/.local/bin/kitti3"
+    state: link

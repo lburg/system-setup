@@ -1,0 +1,62 @@
+---
+
+- name: Copy pacman mirrorlist
+  copy:
+    src: mirrorlist
+    dest: /etc/pacman.d/
+
+- name: Copy pacman configuration
+  copy:
+    src: pacman.conf
+    dest: /etc/
+
+- name: Update pacman package cache
+  pacman:
+    update_cache: yes
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+
+- name: Perform full system upgrade
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+
+- name: Install base packages
+  pacman:
+    name: "{{ base_packages + archlinux_packages }}"
+    state: present
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+
+- name: Install pacaur as AUR helper
+  aur:
+    name:
+      - auracle-git  # pacaur dep, cannot be found in pacman, must be installed through AUR
+      - pacaur
+  become_user: aur_builder
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+  environment:  # TO REMOVE ONCE ZSH CONFIGURED
+    EDITOR: /usr/bin/vim
+
+- name: Install AUR packages
+  aur:
+    name: "{{ aur_packages }}"
+  become_user: aur_builder
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
+  environment:  # TO REMOVE ONCE ZSH CONFIGURED
+    EDITOR: /usr/bin/vim
+ 
