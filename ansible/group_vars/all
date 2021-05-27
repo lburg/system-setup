@@ -31,6 +31,15 @@ base_packages:
   - zsh
 
 debian_packages:
+  # Bunch of packages I installed to make sound work, but maybe overkill
+  - alsa-firmware-loaders
+  - alsa-oss
+  - alsa-tools
+  - alsa-tools-gui
+  - alsa-ucm-conf
+  - alsa-utils
+  - alsamixergui
+  - alsaplayer-oss
   - firefox-esr
   - kitty
   - libssl-dev  # required to install python versions from pyenv

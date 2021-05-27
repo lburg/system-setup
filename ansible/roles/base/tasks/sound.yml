@@ -1,0 +1,6 @@
+---
+
+- name: Fix using proper driver for snd_hda_intel
+  copy:
+    src: dspfix.conf
+    dest: /etc/modprobe.d/dspfix.conf

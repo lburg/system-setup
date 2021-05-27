@@ -5,6 +5,7 @@
   tags: [ archlinux ]
 - import_tasks: debian_packages.yml
   tags: [ debian ]
+- import_tasks: sound.yml
 
 - name: Create vim bundle directory
   file:
