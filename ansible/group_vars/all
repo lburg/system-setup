@@ -19,12 +19,14 @@ base_packages:
   - fzf
   - i3
   - imagemagick
+  - ipython
   - lightdm
   - light-locker
   - network-manager
   - prettyping
   - rofi
   - tig
+  - tree
   - vim
   - virtualenvwrapper
   - xorg
