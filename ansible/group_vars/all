@@ -17,18 +17,20 @@ base_packages:
   - curl
   - feh
   - fzf
-  - i3
+  - i3-gaps
   - imagemagick
   - ipython
   - lightdm
   - light-locker
-  - network-manager
+  - networkmanager
   - prettyping
+  - python-pip
+  - python-virtualenvwrapper
   - rofi
   - tig
   - tree
+  - unzip
   - vim
-  - virtualenvwrapper
   - xorg
   - zsh
 
@@ -55,9 +57,11 @@ debian_packages:
 
 archlinux_packages:
   - base-devel
-  - termite
 
 aur_packages:
+  - lightdm-mini-greeter
+  - plymouth
   - polybar
   - pyenv-virtualenv
   - rcm
+  - termite

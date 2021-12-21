@@ -13,7 +13,7 @@
     force: yes
 
 - name: Install dotfiles (requires rcm)
-  command: "rcup -d {{ dotfiles_dest }}"
+  command: "rcup -d {{ dotfiles_dest }} -f"
   when: dotfiles.installation == 'true'
   become: yes
   become_user: "{{ user.name }}"

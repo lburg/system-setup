@@ -13,7 +13,7 @@
     state: directory
     recurse: yes
     owner: "{{ user.name }}"
-    group: "{{ user.name }}"
+    group: "{{ user.group }}"
 
 - name: Install Vundle to handle vim plugins
   git:
@@ -31,7 +31,7 @@
 
 - name: Install oh-my-zsh if it's not already
   shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended || true"
-  become: "{{ user.name }}"
+  become_user: "{{ user.name }}"
   when: not ohmyzsh.stat.exists
 
 - name: Delete default zshrc so rcup can install ours without using its dangerous -f option
@@ -44,7 +44,7 @@
   pip:
     name: kitti3
     extra_args: --user
-  become: "{{ user.name }}"
+  become_user: "{{ user.name }}"
 
 - name: Symlink to kitti3 from a folder on PATH
   file:

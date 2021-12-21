@@ -6,7 +6,7 @@
     dest: "/home/{{ user.name }}/.{{ item }}"
     mode: 0755
     owner: "{{ user.name }}"
-    group: "{{ user.name }}"
+    group: "{{ user.group }}"
   with_items:
     - gruvbox_bg.png
     - fehbg
