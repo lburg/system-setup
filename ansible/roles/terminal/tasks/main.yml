@@ -1,0 +1,42 @@
+---
+
+- name: Install Kitty
+  pacman:
+    name: kitty
+    state: present
+
+- name: Gather package facts
+  package_facts:
+    manager: "pacman"
+
+- name: Install kitti3
+  community.general.pipx:
+    name: kitti3
+  become_user: "{{ user.name }}"
+  when: "'i3' in ansible_facts.packages"
+
+- name: Symlink to kitti3 from a folder on PATH
+  file:
+    name: /usr/bin/kitti3
+    src: "/home/{{ user.name }}/.local/bin/kitti3"
+    state: link
+  when: "'i3' in ansible_facts.packages"
+
+- name: Create i3 config folder
+  file:
+    path: "/home/{{ user.name }}/.config/i3"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+
+- name: Add configuration block to i3
+  blockinfile:
+    path: "/home/{{ user.name }}/.config/i3/config"
+    block: |
+      exec_always --no-startup-id kitti3
+      bindsym $mod+n nop kitti3
+    create: yes
+    insertafter: EOF
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  when: "'i3' not in ansible_facts.packages"

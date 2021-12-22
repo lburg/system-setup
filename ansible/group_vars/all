@@ -2,7 +2,7 @@
 
 user:
   name: lburg
-  group: users
+  group: lburg
   shell: /bin/zsh
 
 dotfiles:

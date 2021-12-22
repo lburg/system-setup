@@ -41,7 +41,7 @@
   when: not ohmyzsh.stat.exists
 
 - name: Install kitti3
-  pip:
+  pipx:
     name: kitti3
     extra_args: --user
   become_user: "{{ user.name }}"

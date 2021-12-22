@@ -1,0 +1,12 @@
+---
+
+- name: Setup Manjaro after snapshot install
+  hosts: localhost
+  connection: local
+  become: True
+  vars_files:
+    - vars/manjaro.yml
+
+  roles:
+    - role: terminal
+      tags: ['terminal']
